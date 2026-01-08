@@ -1,0 +1,13 @@
+{
+  "name": "big-feelings-book-co",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Production configuration for Big Feelings Book Co. children's publisher website.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

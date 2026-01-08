@@ -1,0 +1,40 @@
+body {
+  background-color: #FFFFFF;
+  color: #1a1a1a;
+  -webkit-font-smoothing: antialiased;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+/* Page Transition States */
+.page-transition-enter { 
+  opacity: 0; 
+  transform: translateY(10px); 
+}
+
+.page-transition-enter-active { 
+  opacity: 1; 
+  transform: translateY(0); 
+  transition: opacity 400ms, transform 400ms; 
+}
+
+/* Hover Microanimations */
+.hover-lift { 
+  transition: transform 0.2s ease-out; 
+}
+
+.hover-lift:hover { 
+  transform: translateY(-4px); 
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Typography Enhancements */
+h1, h2, h3, h4, .font-serif {
+  letter-spacing: -0.01em;
+}
