@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Send, MapPin, Phone, Mail, UserPlus, Store, ArrowRight, ChevronDown } from 'lucide-react';
+import { Send, MapPin, Phone, Mail, UserPlus, Store, ArrowRight } from 'lucide-react';
 
 const Contact: React.FC = () => {
   const [inquiryType, setInquiryType] = useState<'creator' | 'retailer' | 'general' | null>(null);

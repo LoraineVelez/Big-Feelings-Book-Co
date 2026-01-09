@@ -2,31 +2,30 @@ const express = require('express');
 const path = require('path');
 const app = express();
 
-/**
- * Cloud Run automatically injects the PORT environment variable.
- * The server must listen on this port to be considered healthy.
- */
+// Cloud Run requires the server to listen on the port defined by the PORT environment variable.
 const PORT = process.env.PORT || 8080;
 
-/**
- * Serve static files from the root directory.
- * In this environment, index.tsx and other modules are transpiled 
- * either at build time or on-the-fly by the platform.
- */
+// Serve all static files from the root directory.
 app.use(express.static(__dirname));
 
-/**
- * Support for Single Page Application (SPA) routing.
- * Any request that doesn't match a static file will serve index.html,
- * allowing React Router to manage the route.
- */
+// Custom MIME type handling for .tsx files if the platform relies on browser-side transpilation
+// or if the environment needs to recognize these modules correctly.
+express.static.mime.define({'application/javascript': ['tsx', 'ts']});
+
+// Support for Single Page Application (SPA) routing:
+// Redirect any non-file request to index.html so the client-side router can take over.
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
+  const filePath = path.join(__dirname, req.path);
+  // Check if it's a specific file request that failed (like a missing image)
+  // Otherwise, default to index.html for navigation routes.
+  if (req.path.includes('.') && !req.path.endsWith('.html')) {
+    res.status(404).send('Not found');
+  } else {
+    res.sendFile(path.join(__dirname, 'index.html'));
+  }
 });
 
-/**
- * Bind to 0.0.0.0 to ensure the service is accessible from outside the container.
- */
+// Bind to 0.0.0.0 to ensure the service is reachable within the container network.
 app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Big Feelings Book Co. server is live on port ${PORT}`);
+  console.log(`[Production] Big Feelings Book Co. is listening on port ${PORT}`);
 });

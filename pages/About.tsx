@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Heart, Sparkles, BookOpen, Users, ArrowRight, Globe, Palette, Feather, Send, CheckCircle2, ChevronDown, Store, UserPlus } from 'lucide-react';
+import { Heart, Sparkles, BookOpen, Users, ArrowRight, Globe, Palette, Feather, Send, UserPlus, Store } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const About: React.FC = () => {
@@ -8,7 +8,6 @@ const About: React.FC = () => {
   const [formState, setFormState] = useState({ name: '', email: '', detail: '', subject: '' });
   const [isSent, setIsSent] = useState(false);
 
-  // Fix: changed parameter 'Leeds' to 'e' to match standard event naming and avoid 'not found' errors
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSent(true);

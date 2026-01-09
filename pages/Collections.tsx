@@ -1,75 +1,89 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Sparkles } from 'lucide-react';
+import { ArrowRight, Sparkles, BookOpen, Heart } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { BOOKS } from '../constants';
 
 const Collections: React.FC = () => {
-  // Focus exclusively on the primary title
   const currentBook = BOOKS[0];
 
   return (
-    <div className="pt-28 pb-20 px-4 md:px-6 min-h-[85vh] flex flex-col justify-center">
-      <div className="max-w-7xl mx-auto w-full">
-        <header className="mb-12 md:mb-20 text-center max-w-3xl mx-auto">
+    <div className="pt-32 pb-24 px-6 min-h-screen bg-white">
+      <div className="max-w-7xl mx-auto">
+        <header className="mb-20 text-center max-w-3xl mx-auto">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="inline-flex items-center gap-2 bg-brand/5 border border-brand/10 text-brand px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider mb-5"
+            className="inline-flex items-center gap-2 bg-brand/5 border border-brand/10 text-brand px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest mb-6"
           >
-            <Sparkles size={12} />
-            Our Current Collection
+            <Sparkles size={14} />
+            The Current Collection
           </motion.div>
-          <h1 className="text-3xl md:text-5xl lg:text-6xl font-serif font-bold text-slate-900 mb-5 text-balance">The Library</h1>
-          <p className="text-sm md:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto px-4">
-            Discover carefully crafted stories designed to hold space for the conversations that matter most.
+          <h1 className="text-4xl md:text-6xl font-serif font-bold text-slate-900 mb-6">Our Library</h1>
+          <p className="text-lg text-slate-600 leading-relaxed font-medium">
+            Stories designed to hold space for the conversations that matter most. We believe every child deserves a bridge to their own big feelings.
           </p>
         </header>
 
-        {/* Featured Title Biography Card */}
-        <section className="max-w-6xl mx-auto">
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="bg-white rounded-[32px] md:rounded-[48px] p-6 md:p-12 lg:p-16 border border-slate-100 shadow-2xl shadow-slate-200/50 relative overflow-hidden flex flex-col lg:row-reverse lg:flex-row gap-10 md:gap-12 items-center"
-          >
-            <div className="absolute top-0 right-0 w-48 h-48 md:w-64 md:h-64 bg-brand/5 rounded-full blur-[80px] md:blur-[100px] -z-0" />
-            
-            <div className="relative z-10 w-full lg:w-2/5 group px-4 sm:px-0">
-              <div className="absolute inset-0 bg-brand/10 rounded-[24px] md:rounded-[32px] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity -z-10" />
-              <img 
-                src={currentBook.coverImage} 
-                alt={currentBook.title}
-                className="w-full max-w-[260px] sm:max-w-sm mx-auto rounded-[24px] md:rounded-[32px] shadow-2xl transform lg:rotate-2 group-hover:rotate-0 transition-transform duration-700 border-4 border-white"
-              />
+        {/* Featured Card */}
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-white rounded-[48px] p-8 md:p-16 border border-slate-100 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.08)] relative overflow-hidden group"
+        >
+          <div className="absolute top-0 right-0 w-64 h-64 bg-brand/5 rounded-full blur-[100px] -z-0 pointer-events-none" />
+          
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center relative z-10">
+            <div className="lg:col-span-5">
+              <div className="relative">
+                <div className="absolute -inset-6 bg-brand/10 rounded-[40px] blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                <img 
+                  src={currentBook.coverImage} 
+                  alt={currentBook.title}
+                  className="w-full max-w-sm mx-auto rounded-[32px] shadow-2xl transform lg:rotate-2 group-hover:rotate-0 transition-all duration-700 border-4 border-white"
+                />
+              </div>
             </div>
 
-            <div className="relative z-10 flex-1 text-center lg:text-left px-2 sm:px-0">
-              <span className="text-brand font-bold uppercase tracking-[0.4em] text-[10px] mb-3 block">New Release</span>
-              <h2 className="text-3xl md:text-5xl font-serif font-bold text-slate-900 mb-2 leading-tight">{currentBook.title}</h2>
-              <p className="text-brand font-bold text-xs sm:text-sm uppercase tracking-wide mb-6">
-                By {currentBook.author} · Illustrated by {currentBook.illustrator}
+            <div className="lg:col-span-7 text-center lg:text-left">
+              <div className="flex items-center justify-center lg:justify-start gap-3 mb-6">
+                <Heart size={16} className="text-brand fill-brand/20" />
+                <span className="text-brand font-bold uppercase tracking-[0.4em] text-[10px]">Primary Title</span>
+              </div>
+              <h2 className="text-3xl md:text-5xl font-serif font-bold text-slate-900 mb-4 leading-tight">{currentBook.title}</h2>
+              <p className="text-slate-500 font-bold text-sm uppercase tracking-wide mb-8">
+                By {currentBook.author} · Art by {currentBook.illustrator}
               </p>
-              <div className="space-y-4 mb-10 text-balance px-2 sm:px-0">
-                <p className="text-base md:text-xl text-slate-900 font-medium italic leading-relaxed">
+              
+              <div className="bg-slate-50 p-8 rounded-[32px] border border-slate-100 mb-10 text-balance shadow-sm">
+                <p className="text-lg md:text-2xl text-slate-900 font-medium italic leading-relaxed mb-4">
                   "{currentBook.shortDescription}"
                 </p>
-                <p className="text-sm md:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto lg:mx-0">
-                  Follow Little Willow as she discovers where love goes when Grand Willow is no longer there.
+                <p className="text-base text-slate-600 leading-relaxed">
+                  A gentle exploration of love, absence, and the enduring connection that remains when words feel small.
                 </p>
               </div>
               
-              <Link 
-                to={`/collections/${currentBook.id}`}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-brand text-white px-10 py-4 rounded-full font-bold shadow-xl shadow-brand/20 hover:bg-brand-dark hover:scale-105 transition-all group active:scale-95"
-              >
-                Enter the book's world
-                <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
-              </Link>
+              <div className="flex flex-col sm:flex-row gap-5 justify-center lg:justify-start">
+                <Link 
+                  to={`/collections/${currentBook.id}`}
+                  className="bg-brand text-white px-10 py-5 rounded-full font-bold shadow-xl shadow-brand/20 hover:bg-brand-dark hover:scale-105 transition-all duration-300 flex items-center justify-center gap-3 group active:scale-95 btn-animate"
+                >
+                  Enter the Story
+                  <BookOpen size={20} />
+                </Link>
+                <button className="bg-white border border-slate-200 text-slate-600 px-10 py-5 rounded-full font-bold hover:bg-slate-50 transition-all">
+                  Purchase on Amazon
+                </button>
+              </div>
             </div>
-          </motion.div>
-        </section>
+          </div>
+        </motion.div>
+
+        {/* Upcoming Placeholder */}
+        <div className="mt-20 pt-20 border-t border-slate-100 text-center">
+          <p className="text-slate-400 font-serif italic text-lg">More stories coming into the light soon...</p>
+        </div>
       </div>
     </div>
   );

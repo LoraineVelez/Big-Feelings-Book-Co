@@ -45,7 +45,6 @@ const Home: React.FC = () => {
             </div>
           </motion.div>
 
-          {/* Hero Image Container: Hidden on mobile (default), visible on large screens (lg) */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
