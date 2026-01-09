@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Instagram, Twitter, Mail, Heart } from 'lucide-react';
@@ -53,7 +52,7 @@ const Footer: React.FC = () => {
         </div>
         
         <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-slate-200 gap-4 text-xs">
-          <p className="text-slate-400">© 2026 Big Feelings Book Co. All rights reserved. | Website by Loraine Velez-Lugo</p>
+          <p className="text-slate-400 text-center md:text-left">© 2026 Big Feelings Book Co. All rights reserved. | Website by Loraine Velez-Lugo</p>
           <div className="flex items-center gap-1 text-slate-400">
             Made with <Heart size={14} className="text-brand fill-brand" /> for little readers.
           </div>
