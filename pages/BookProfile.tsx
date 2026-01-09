@@ -1,34 +1,58 @@
-import React from 'react';
+
+import React, { useState } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { ArrowLeft, Heart, ShoppingBag, Star, CheckCircle2, Feather, Palette } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { 
+  ArrowLeft, 
+  Heart, 
+  ShoppingBag, 
+  Star, 
+  CheckCircle2, 
+  Feather, 
+  Palette, 
+  MessageSquare, 
+  User, 
+  Send 
+} from 'lucide-react';
 import { BOOKS } from '../constants';
 
 const BookProfile: React.FC = () => {
   const { bookId } = useParams<{ bookId: string }>();
   const book = BOOKS.find(b => b.id === bookId);
 
-  if (!book) {
-    return <Navigate to="/collections" replace />;
-  }
-
-  const reviews = [
+  // Review state
+  const [reviews, setReviews] = useState([
     {
       text: "A beautiful bridge for children navigating loss. The imagery is as soft as the message. It has become a staple in our nighttime routine.",
       author: "Sarah M.",
-      role: "Parent"
+      role: "Parent",
+      rating: 5,
+      date: "2 months ago"
     },
     {
       text: "An essential tool for the classroom. It handles the weight of grief with incredible grace and opens up space for honest, gentle conversations.",
       author: "Mr. Julian",
-      role: "Educator"
+      role: "Educator",
+      rating: 5,
+      date: "3 months ago"
     },
     {
       text: "Finally, a book that respects a child's intelligence and emotional depth. A vital resource for supporting young hearts through transition.",
       author: "Dr. Elena",
-      role: "Child Specialist"
+      role: "Child Specialist",
+      rating: 5,
+      date: "5 months ago"
     }
-  ];
+  ]);
+
+  // Form state
+  const [newReview, setNewReview] = useState({ name: '', role: '', text: '' });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showForm, setShowForm] = useState(false);
+
+  if (!book) {
+    return <Navigate to="/collections" replace />;
+  }
 
   const creators = [
     {
@@ -47,6 +71,28 @@ const BookProfile: React.FC = () => {
     }
   ];
 
+  const handleReviewSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newReview.name || !newReview.text) return;
+
+    setIsSubmitting(true);
+    // Simulate API call
+    setTimeout(() => {
+      // Fix: Ensure the new review object matches the shape of existing reviews (using 'author' instead of 'name')
+      const reviewToAdd = {
+        author: newReview.name,
+        text: newReview.text,
+        role: newReview.role || "Community Member",
+        rating: 5,
+        date: "Just now"
+      };
+      setReviews([reviewToAdd, ...reviews]);
+      setNewReview({ name: '', role: '', text: '' });
+      setIsSubmitting(false);
+      setShowForm(false);
+    }, 1000);
+  };
+
   return (
     <div className="min-h-screen bg-white pt-24 pb-20">
       <div className="max-w-7xl mx-auto px-4 md:px-6">
@@ -58,7 +104,7 @@ const BookProfile: React.FC = () => {
           Back to Collections
         </Link>
 
-        {/* Hero Section: The Universe Intro */}
+        {/* Hero Section */}
         <section className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center mb-16 md:mb-24">
           <motion.div 
             initial={{ opacity: 0, scale: 0.95 }}
@@ -148,7 +194,7 @@ const BookProfile: React.FC = () => {
           </div>
         </section>
 
-        {/* Related Products Section */}
+        {/* Related Products */}
         {book.relatedProducts && book.relatedProducts.length > 0 && (
           <section className="mb-16 md:mb-24">
             <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-10 gap-4 text-center md:text-left">
@@ -197,7 +243,7 @@ const BookProfile: React.FC = () => {
           </section>
         )}
 
-        {/* Meet the Creators Section */}
+        {/* Creators */}
         <section className="mb-16 md:mb-24">
           <div className="text-center mb-10 md:mb-12">
             <span className="text-brand font-bold uppercase tracking-[0.2em] text-[10px] mb-2 block">Creators</span>
@@ -212,15 +258,15 @@ const BookProfile: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1 }}
-                className="bg-white p-6 md:p-8 rounded-[32px] border border-slate-100 shadow-sm flex flex-col sm:flex-row gap-6 items-start"
+                className="bg-white p-6 md:p-8 rounded-[32px] border border-slate-100 shadow-sm flex flex-col sm:flex-row gap-6 items-center sm:items-start text-center sm:text-left"
               >
                 <img 
                   src={creator.image} 
                   alt={creator.name} 
-                  className="w-20 h-20 md:w-28 md:h-28 rounded-2xl object-cover shrink-0"
+                  className="w-24 h-24 md:w-28 md:h-28 rounded-2xl object-cover shrink-0"
                 />
                 <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-1">
+                  <div className="flex flex-col sm:flex-row items-center sm:items-start gap-2 mb-1">
                     <div className="text-brand/40">{creator.icon}</div>
                     <h3 className="text-xl font-serif font-bold text-slate-900">{creator.name}</h3>
                   </div>
@@ -234,32 +280,138 @@ const BookProfile: React.FC = () => {
           </div>
         </section>
 
-        {/* Reviews Section */}
+        {/* Reviews - Forum Style */}
         <section className="pt-12 md:pt-16 border-t border-slate-100 max-w-4xl mx-auto px-2">
-          <div className="mb-10 text-center md:text-left">
-            <h2 className="text-2xl md:text-3xl font-serif font-bold text-slate-900 px-4 md:px-0">Reviews – What People Are Saying</h2>
+          <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-12">
+            <div className="text-center md:text-left">
+              <span className="text-brand font-bold uppercase tracking-[0.2em] text-[10px] mb-1 block">Reader Forum</span>
+              <h2 className="text-2xl md:text-4xl font-serif font-bold text-slate-900">Community Reviews</h2>
+              <div className="flex items-center justify-center md:justify-start gap-1 mt-2">
+                {[...Array(5)].map((_, i) => <Star key={i} size={16} className="text-yellow-400 fill-yellow-400" />)}
+                <span className="text-slate-500 text-sm font-bold ml-2">5.0 average</span>
+              </div>
+            </div>
+            
+            <button 
+              onClick={() => setShowForm(!showForm)}
+              className="bg-brand/5 text-brand border border-brand/20 px-6 py-3 rounded-full font-bold text-sm hover:bg-brand hover:text-white transition-all duration-300 flex items-center gap-2"
+            >
+              {showForm ? "Cancel Review" : "Share your Heart"}
+              <MessageSquare size={18} />
+            </button>
           </div>
 
-          <div className="space-y-8">
+          <AnimatePresence>
+            {showForm && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                className="overflow-hidden mb-12"
+              >
+                <form 
+                  onSubmit={handleReviewSubmit}
+                  className="bg-slate-50 p-6 md:p-8 rounded-[32px] border border-slate-200 shadow-sm"
+                >
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                      <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5 ml-1">Your Name</label>
+                      <input 
+                        type="text" 
+                        required
+                        value={newReview.name}
+                        onChange={(e) => setNewReview({...newReview, name: e.target.value})}
+                        placeholder="e.g. Maria G."
+                        className="w-full bg-white border border-slate-200 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand/20 text-sm"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5 ml-1">Your Role (Optional)</label>
+                      <input 
+                        type="text" 
+                        value={newReview.role}
+                        onChange={(e) => setNewReview({...newReview, role: e.target.value})}
+                        placeholder="e.g. Parent, Teacher, Librarian"
+                        className="w-full bg-white border border-slate-200 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand/20 text-sm"
+                      />
+                    </div>
+                  </div>
+                  <div className="mb-6">
+                    <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5 ml-1">Your Review</label>
+                    <textarea 
+                      required
+                      rows={4}
+                      value={newReview.text}
+                      onChange={(e) => setNewReview({...newReview, text: e.target.value})}
+                      placeholder="Share how this book helped your little ones..."
+                      className="w-full bg-white border border-slate-200 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand/20 text-sm resize-none"
+                    />
+                  </div>
+                  
+                  <div className="flex flex-col sm:flex-row justify-between items-center gap-6">
+                    <div className="flex items-center gap-3">
+                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Fixed Rating:</span>
+                      <div className="flex gap-1">
+                        {[...Array(5)].map((_, i) => <Star key={i} size={18} className="text-yellow-400 fill-yellow-400" />)}
+                      </div>
+                      <span className="text-xs font-bold text-brand italic">(Always 5 stars!)</span>
+                    </div>
+                    
+                    <button 
+                      type="submit" 
+                      disabled={isSubmitting}
+                      className={`w-full sm:w-auto px-8 py-3.5 rounded-full font-bold flex items-center justify-center gap-2 transition-all ${
+                        isSubmitting ? 'bg-slate-300' : 'bg-brand text-white shadow-lg shadow-brand/20 hover:scale-105 active:scale-95'
+                      }`}
+                    >
+                      {isSubmitting ? "Sending..." : "Post Review"}
+                      <Send size={16} />
+                    </button>
+                  </div>
+                </form>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          <div className="space-y-6">
             {reviews.map((review, idx) => (
               <motion.div
                 key={idx}
                 initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: idx * 0.1 }}
-                className="border-b border-slate-100 pb-8 last:border-0 px-4 md:px-0"
+                className="bg-white p-6 md:p-8 rounded-[32px] border border-slate-100 shadow-sm hover:shadow-md transition-shadow relative text-center md:text-left"
               >
-                <p className="text-slate-700 text-sm md:text-lg mb-4 leading-relaxed italic">
+                <div className="flex flex-col md:flex-row justify-between items-center md:items-start gap-4 mb-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-brand/5 rounded-full flex items-center justify-center text-brand">
+                      <User size={20} />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-slate-900 text-sm md:text-base">{review.author}</h4>
+                      <div className="flex items-center justify-center md:justify-start gap-2">
+                        <span className="text-slate-400 text-[10px] uppercase tracking-widest font-bold">{review.role}</span>
+                        <span className="text-slate-300 text-[10px]">•</span>
+                        <span className="text-slate-300 text-[10px]">{review.date}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex gap-1">
+                    {[...Array(5)].map((_, i) => <Star key={i} size={14} className="text-yellow-400 fill-yellow-400" />)}
+                  </div>
+                </div>
+                
+                <p className="text-slate-700 text-sm md:text-base leading-relaxed italic">
                   "{review.text}"
                 </p>
-                <div className="flex items-center gap-2">
-                  <span className="font-bold text-slate-900 text-xs md:text-sm">{review.author}</span>
-                  <span className="text-slate-300 text-[10px]">•</span>
-                  <span className="text-slate-500 text-[9px] md:text-[10px] uppercase tracking-widest font-bold">{review.role}</span>
-                </div>
               </motion.div>
             ))}
+          </div>
+
+          <div className="mt-12 text-center">
+            <p className="text-xs text-slate-400 italic">
+              Sharing a review helps other families find the right bridges for their conversations.
+            </p>
           </div>
         </section>
       </div>
