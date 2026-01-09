@@ -18,13 +18,13 @@ const Navbar: React.FC = () => {
   useEffect(() => setIsOpen(false), [location]);
 
   return (
-    <nav className={`fixed w-full z-50 transition-all duration-500 ${scrolled ? 'bg-white/95 backdrop-blur-md shadow-sm py-3' : 'bg-white py-5 md:py-6'}`}>
+    <nav className={`fixed w-full z-50 transition-all duration-500 ${scrolled ? 'bg-white/95 backdrop-blur-md shadow-sm py-2 md:py-3' : 'bg-white py-6 md:py-10'}`}>
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
         <Link to="/" className="flex items-center group">
           <img 
             src="https://i.ibb.co/YFcXz106/Big-Feelings-Color-Wordmark.png" 
             alt="Big Feelings Book Co." 
-            className="h-10 md:h-14 w-auto transition-transform duration-500 group-hover:scale-105"
+            className={`transition-all duration-500 group-hover:scale-105 w-auto ${scrolled ? 'h-12 md:h-16' : 'h-20 md:h-32'}`}
           />
         </Link>
 
