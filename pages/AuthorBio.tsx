@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 const AuthorBio: React.FC = () => {
   return (
-    <div className="pt-24 pb-16 px-5 md:px-6">
+    <div className="pt-44 md:pt-64 pb-16 px-5 md:px-6">
       <div className="max-w-4xl mx-auto">
         <Link 
           to="/about" 

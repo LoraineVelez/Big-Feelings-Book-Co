@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -94,7 +93,7 @@ const BookProfile: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white pt-24 pb-20">
+    <div className="min-h-screen bg-white pt-44 md:pt-64 pb-20">
       <div className="max-w-7xl mx-auto px-4 md:px-6">
         <Link 
           to="/collections" 

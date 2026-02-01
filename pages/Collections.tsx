@@ -8,7 +8,7 @@ const Collections: React.FC = () => {
   const currentBook = BOOKS[0];
 
   return (
-    <div className="pt-32 pb-24 px-6 min-h-screen bg-white">
+    <div className="pt-44 md:pt-64 pb-24 px-6 min-h-screen bg-white">
       <div className="max-w-7xl mx-auto">
         <header className="mb-20 text-center max-w-3xl mx-auto">
           <motion.div

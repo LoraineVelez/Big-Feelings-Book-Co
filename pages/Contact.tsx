@@ -18,7 +18,7 @@ const Contact: React.FC = () => {
   };
 
   return (
-    <div className="pt-28 pb-16 px-4 md:px-6 bg-white">
+    <div className="pt-44 md:pt-64 pb-16 px-4 md:px-6 bg-white">
       <div className="max-w-6xl mx-auto">
         {/* Header Section */}
         <div className="text-center mb-12 md:mb-16">

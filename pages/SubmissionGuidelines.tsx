@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 const SubmissionGuidelines: React.FC = () => {
   return (
-    <div className="pt-28 pb-20 px-4 md:px-6 bg-white min-h-screen">
+    <div className="pt-44 md:pt-64 pb-20 px-4 md:px-6 bg-white min-h-screen">
       <div className="max-w-3xl mx-auto">
         <Link 
           to="/about" 

@@ -10,7 +10,7 @@ const Home: React.FC = () => {
   return (
     <div className="overflow-hidden bg-white">
       {/* 1. Hero Introduction */}
-      <section className="relative pt-20 pb-8 md:pt-24 md:pb-10 px-4 md:px-6">
+      <section className="relative pt-40 pb-8 md:pt-64 md:pb-10 px-4 md:px-6">
         <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
           <motion.div 
             initial={{ opacity: 0 }}

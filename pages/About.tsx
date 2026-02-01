@@ -37,7 +37,7 @@ const About: React.FC = () => {
   ];
 
   return (
-    <div className="pt-20 md:pt-24 pb-0 bg-white">
+    <div className="pt-44 md:pt-64 pb-0 bg-white">
       {/* 1. Who We Are */}
       <section className="px-5 md:px-6 py-6 md:py-10 relative overflow-hidden bg-white">
         <div className="absolute top-0 right-0 w-48 h-48 md:w-64 md:h-64 bg-brand/5 rounded-full blur-[80px] md:blur-[100px] -z-10" />
