@@ -19,33 +19,20 @@ const BookProfile: React.FC = () => {
   const { bookId } = useParams<{ bookId: string }>();
   const book = BOOKS.find(b => b.id === bookId);
 
-  // Review state
-  const [reviews, setReviews] = useState([
-    {
-      text: "A beautiful bridge for children navigating loss. The imagery is as soft as the message. It has become a staple in our nighttime routine.",
-      author: "Sarah M.",
-      role: "Parent",
-      rating: 5,
-      date: "2 months ago"
-    },
-    {
-      text: "An essential tool for the classroom. It handles the weight of grief with incredible grace and opens up space for honest, gentle conversations.",
-      author: "Mr. Julian",
-      role: "Educator",
-      rating: 5,
-      date: "3 months ago"
-    },
-    {
-      text: "Finally, a book that respects a child's intelligence and emotional depth. A vital resource for supporting young hearts through transition.",
-      author: "Dr. Elena",
-      role: "Child Specialist",
-      rating: 5,
-      date: "5 months ago"
-    }
-  ]);
+  // Review state - load real curated reviews from localStorage for persistence across reloads
+  const [reviews, setReviews] = useState<{
+    text: string;
+    author: string;
+    role: string;
+    rating: number;
+    date: string;
+  }[]>(() => {
+    const saved = localStorage.getItem(`reviews_${bookId}`);
+    return saved ? JSON.parse(saved) : [];
+  });
 
-  // Form state
-  const [newReview, setNewReview] = useState({ name: '', role: '', text: '' });
+  // Form state - name, title (role), text and 5 star rating by default
+  const [newReview, setNewReview] = useState({ name: '', role: '', text: '', rating: 5 });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showForm, setShowForm] = useState(false);
 
@@ -62,9 +49,9 @@ const BookProfile: React.FC = () => {
       icon: <Feather size={16} />
     },
     {
-      name: "Paola Acosta",
+      name: "Paola A. Cisante",
       role: "Illustrator",
-      bio: "Paola Acosta is a children’s book illustrator based in Chile, working in both English and Spanish. With a background in graphic design and a passion for storytelling through illustration, her work is known for its warmth, color, and gentle sense of play. Paola brings stories to life through expressive characters and thoughtful visual worlds, creating illustrations that feel inviting, emotional, and rich with detail.",
+      bio: "Paola A. Cisante is a children’s book illustrator based in Chile, working in both English and Spanish. With a background in graphic design and a passion for storytelling through illustration, her work is known for its warmth, color, and gentle sense of play. Paola A. Cisante brings stories to life through expressive characters and thoughtful visual worlds, creating illustrations that feel inviting, emotional, and rich with detail.",
       image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=400",
       icon: <Palette size={16} />
     }
@@ -75,21 +62,24 @@ const BookProfile: React.FC = () => {
     if (!newReview.name || !newReview.text) return;
 
     setIsSubmitting(true);
-    // Simulate API call
+    // Simulate API call and save to localStorage
     setTimeout(() => {
-      // Fix: Ensure the new review object matches the shape of existing reviews (using 'author' instead of 'name')
       const reviewToAdd = {
         author: newReview.name,
         text: newReview.text,
-        role: newReview.role || "Community Member",
-        rating: 5,
+        role: newReview.role || "Verified Reader",
+        rating: newReview.rating || 5,
         date: "Just now"
       };
-      setReviews([reviewToAdd, ...reviews]);
-      setNewReview({ name: '', role: '', text: '' });
+      
+      const updatedReviews = [reviewToAdd, ...reviews];
+      setReviews(updatedReviews);
+      localStorage.setItem(`reviews_${bookId}`, JSON.stringify(updatedReviews));
+      
+      setNewReview({ name: '', role: '', text: '', rating: 5 });
       setIsSubmitting(false);
       setShowForm(false);
-    }, 1000);
+    }, 800);
   };
 
   return (
@@ -163,10 +153,15 @@ const BookProfile: React.FC = () => {
                 </div>
               </div>
 
-              <button className="w-full sm:w-auto bg-brand text-white px-10 py-4 rounded-full font-bold shadow-xl shadow-brand/20 hover:bg-brand-dark hover:scale-105 transition-all flex items-center justify-center gap-2 group active:scale-95 text-sm sm:text-base">
+              <a 
+                href={book.amazonUrl || "https://www.amazon.com"} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="w-full sm:w-auto bg-brand text-white px-10 py-4 rounded-full font-bold shadow-xl shadow-brand/20 hover:bg-brand-dark hover:scale-105 transition-all flex items-center justify-center gap-2 group active:scale-95 text-sm sm:text-base"
+              >
                 <ShoppingBag size={20} />
                 Purchase on Amazon
-              </button>
+              </a>
             </motion.div>
           </div>
         </section>
@@ -193,8 +188,8 @@ const BookProfile: React.FC = () => {
           </div>
         </section>
 
-        {/* Related Products */}
-        {book.relatedProducts && book.relatedProducts.length > 0 && (
+        {/* Related Products - Hidden temporarily since there are no real products to advertise yet */}
+        {false && (
           <section className="mb-16 md:mb-24">
             <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-10 gap-4 text-center md:text-left">
               <div>
@@ -207,7 +202,7 @@ const BookProfile: React.FC = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-              {book.relatedProducts.map(product => (
+              {book?.relatedProducts?.map(product => (
                 <motion.div 
                   key={product.id}
                   whileHover={{ y: -8 }}
@@ -281,131 +276,201 @@ const BookProfile: React.FC = () => {
 
         {/* Reviews - Forum Style */}
         <section className="pt-12 md:pt-16 border-t border-slate-100 max-w-4xl mx-auto px-2">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-12">
-            <div className="text-center md:text-left">
-              <span className="text-brand font-bold uppercase tracking-[0.2em] text-[10px] mb-1 block">Reader Forum</span>
-              <h2 className="text-2xl md:text-4xl font-serif font-bold text-slate-900">Community Reviews</h2>
-              <div className="flex items-center justify-center md:justify-start gap-1 mt-2">
-                {[...Array(5)].map((_, i) => <Star key={i} size={16} className="text-yellow-400 fill-yellow-400" />)}
-                <span className="text-slate-500 text-sm font-bold ml-2">5.0 average</span>
-              </div>
-            </div>
-            
-            <button 
-              onClick={() => setShowForm(!showForm)}
-              className="bg-brand/5 text-brand border border-brand/20 px-6 py-3 rounded-full font-bold text-sm hover:bg-brand hover:text-white transition-all duration-300 flex items-center gap-2"
-            >
-              {showForm ? "Cancel Review" : "Share your Heart"}
-              <MessageSquare size={18} />
-            </button>
-          </div>
+          {(() => {
+            const totalReviews = reviews.length;
+            const averageRating = totalReviews > 0 
+              ? (reviews.reduce((acc, r) => acc + r.rating, 0) / totalReviews).toFixed(1)
+              : "5.0";
 
-          <AnimatePresence>
-            {showForm && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
-                className="overflow-hidden mb-12"
-              >
-                <form 
-                  onSubmit={handleReviewSubmit}
-                  className="bg-slate-50 p-6 md:p-8 rounded-[32px] border border-slate-200 shadow-sm"
-                >
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                    <div>
-                      <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5 ml-1">Your Name</label>
-                      <input 
-                        type="text" 
-                        required
-                        value={newReview.name}
-                        onChange={(e) => setNewReview({...newReview, name: e.target.value})}
-                        placeholder="e.g. Maria G."
-                        className="w-full bg-white border border-slate-200 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand/20 text-sm"
-                      />
+            return (
+              <>
+                <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-12">
+                  <div className="text-center md:text-left">
+                    <span className="text-brand font-bold uppercase tracking-[0.2em] text-[10px] mb-1 block">Reader Forum</span>
+                    <h2 className="text-2xl md:text-4xl font-serif font-bold text-slate-900">Community Reviews</h2>
+                    <div className="flex items-center justify-center md:justify-start gap-1 mt-2">
+                      {[...Array(5)].map((_, i) => {
+                        const starVal = i + 1;
+                        const isFilled = starVal <= Math.round(parseFloat(averageRating));
+                        return (
+                          <Star 
+                            key={i} 
+                            size={16} 
+                            className={isFilled ? "text-yellow-400 fill-yellow-400" : "text-slate-200 fill-slate-200"} 
+                          />
+                        );
+                      })}
+                      <span className="text-slate-500 text-sm font-bold ml-2">
+                        {averageRating} average ({totalReviews} {totalReviews === 1 ? 'review' : 'reviews'})
+                      </span>
                     </div>
-                    <div>
-                      <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5 ml-1">Your Role (Optional)</label>
-                      <input 
-                        type="text" 
-                        value={newReview.role}
-                        onChange={(e) => setNewReview({...newReview, role: e.target.value})}
-                        placeholder="e.g. Parent, Teacher, Librarian"
-                        className="w-full bg-white border border-slate-200 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand/20 text-sm"
-                      />
-                    </div>
-                  </div>
-                  <div className="mb-6">
-                    <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5 ml-1">Your Review</label>
-                    <textarea 
-                      required
-                      rows={4}
-                      value={newReview.text}
-                      onChange={(e) => setNewReview({...newReview, text: e.target.value})}
-                      placeholder="Share how this book helped your little ones..."
-                      className="w-full bg-white border border-slate-200 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand/20 text-sm resize-none"
-                    />
                   </div>
                   
-                  <div className="flex flex-col sm:flex-row justify-between items-center gap-6">
-                    <div className="flex items-center gap-3">
-                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Fixed Rating:</span>
-                      <div className="flex gap-1">
-                        {[...Array(5)].map((_, i) => <Star key={i} size={18} className="text-yellow-400 fill-yellow-400" />)}
-                      </div>
-                      <span className="text-xs font-bold text-brand italic">(Always 5 stars!)</span>
-                    </div>
-                    
-                    <button 
-                      type="submit" 
-                      disabled={isSubmitting}
-                      className={`w-full sm:w-auto px-8 py-3.5 rounded-full font-bold flex items-center justify-center gap-2 transition-all ${
-                        isSubmitting ? 'bg-slate-300' : 'bg-brand text-white shadow-lg shadow-brand/20 hover:scale-105 active:scale-95'
-                      }`}
-                    >
-                      {isSubmitting ? "Sending..." : "Post Review"}
-                      <Send size={16} />
-                    </button>
-                  </div>
-                </form>
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          <div className="space-y-6">
-            {reviews.map((review, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: idx * 0.1 }}
-                className="bg-white p-6 md:p-8 rounded-[32px] border border-slate-100 shadow-sm hover:shadow-md transition-shadow relative text-center md:text-left"
-              >
-                <div className="flex flex-col md:flex-row justify-between items-center md:items-start gap-4 mb-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-brand/5 rounded-full flex items-center justify-center text-brand">
-                      <User size={20} />
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-slate-900 text-sm md:text-base">{review.author}</h4>
-                      <div className="flex items-center justify-center md:justify-start gap-2">
-                        <span className="text-slate-400 text-[10px] uppercase tracking-widest font-bold">{review.role}</span>
-                        <span className="text-slate-300 text-[10px]">•</span>
-                        <span className="text-slate-300 text-[10px]">{review.date}</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex gap-1">
-                    {[...Array(5)].map((_, i) => <Star key={i} size={14} className="text-yellow-400 fill-yellow-400" />)}
-                  </div>
+                  <button 
+                    onClick={() => setShowForm(!showForm)}
+                    className="bg-brand/5 text-brand border border-brand/20 px-6 py-3 rounded-full font-bold text-sm hover:bg-brand hover:text-white transition-all duration-300 flex items-center gap-2"
+                  >
+                    {showForm ? "Cancel Review" : "Leave a Review"}
+                    <MessageSquare size={18} />
+                  </button>
                 </div>
-                
-                <p className="text-slate-700 text-sm md:text-base leading-relaxed italic">
-                  "{review.text}"
-                </p>
-              </motion.div>
-            ))}
-          </div>
+
+                <AnimatePresence>
+                  {showForm && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      exit={{ opacity: 0, height: 0 }}
+                      className="overflow-hidden mb-12"
+                    >
+                      <form 
+                        onSubmit={handleReviewSubmit}
+                        className="bg-slate-50 p-6 md:p-8 rounded-[32px] border border-slate-200 shadow-sm"
+                      >
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                          <div>
+                            <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5 ml-1">Your Name</label>
+                            <input 
+                              type="text" 
+                              required
+                              value={newReview.name}
+                              onChange={(e) => setNewReview({...newReview, name: e.target.value})}
+                              placeholder="e.g. Maria G."
+                              className="w-full bg-white border border-slate-200 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand/20 text-sm"
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5 ml-1">Your Title / Role</label>
+                            <input 
+                              type="text" 
+                              value={newReview.role}
+                              onChange={(e) => setNewReview({...newReview, role: e.target.value})}
+                              placeholder="e.g. Parent, Teacher, Counselor"
+                              className="w-full bg-white border border-slate-200 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand/20 text-sm"
+                            />
+                          </div>
+                        </div>
+
+                        <div className="mb-4">
+                          <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5 ml-1">Rating</label>
+                          <div className="flex items-center gap-2">
+                            <div className="flex gap-1">
+                              {[1, 2, 3, 4, 5].map((starVal) => (
+                                <button
+                                  type="button"
+                                  key={starVal}
+                                  onClick={() => setNewReview({ ...newReview, rating: starVal })}
+                                  className="p-1 hover:scale-110 transition-transform focus:outline-none"
+                                >
+                                  <Star 
+                                    size={20} 
+                                    className={starVal <= newReview.rating ? "text-yellow-400 fill-yellow-400" : "text-slate-300 fill-transparent"} 
+                                  />
+                                </button>
+                              ))}
+                            </div>
+                            <span className="text-xs font-bold text-slate-500 ml-2">
+                              {newReview.rating === 5 ? "(5 Stars - Perfect!)" : `(${newReview.rating} Stars)`}
+                            </span>
+                          </div>
+                        </div>
+
+                        <div className="mb-6">
+                          <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5 ml-1">Your Review</label>
+                          <textarea 
+                            required
+                            rows={4}
+                            value={newReview.text}
+                            onChange={(e) => setNewReview({...newReview, text: e.target.value})}
+                            placeholder="Share how this book helped your little ones..."
+                            className="w-full bg-white border border-slate-200 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand/20 text-sm resize-none"
+                          />
+                        </div>
+                        
+                        <div className="flex justify-end">
+                          <button 
+                            type="submit" 
+                            disabled={isSubmitting}
+                            className={`w-full sm:w-auto px-8 py-3.5 rounded-full font-bold flex items-center justify-center gap-2 transition-all ${
+                              isSubmitting ? 'bg-slate-300' : 'bg-brand text-white shadow-lg shadow-brand/20 hover:scale-105 active:scale-95'
+                            }`}
+                          >
+                            {isSubmitting ? "Sending..." : "Post Review"}
+                            <Send size={16} />
+                          </button>
+                        </div>
+                      </form>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
+                {reviews.length === 0 ? (
+                  <motion.div 
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="text-center py-16 bg-slate-50/50 rounded-[32px] border border-dashed border-slate-200 p-8 max-w-2xl mx-auto"
+                  >
+                    <div className="w-16 h-16 bg-brand/5 rounded-full flex items-center justify-center text-brand mx-auto mb-4">
+                      <Heart size={28} className="text-brand animate-pulse" />
+                    </div>
+                    <h3 className="text-xl font-serif font-bold text-slate-900 mb-2">No Reviews Yet</h3>
+                    <p className="text-slate-500 text-sm md:text-base leading-relaxed mb-6 max-w-md mx-auto text-balance">
+                      Be the first to share your thoughts on <span className="font-semibold text-slate-700">"{book.title}"</span>. Your feedback helps other families find the right bridges for their conversations.
+                    </p>
+                    {!showForm && (
+                      <button 
+                        onClick={() => setShowForm(true)}
+                        className="bg-brand text-white px-8 py-3 rounded-full font-bold text-sm shadow-lg shadow-brand/20 hover:bg-brand-dark transition-all hover:scale-105 active:scale-95"
+                      >
+                        Write the First Review
+                      </button>
+                    )}
+                  </motion.div>
+                ) : (
+                  <div className="space-y-6">
+                    {reviews.map((review, idx) => (
+                      <motion.div
+                        key={idx}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: idx * 0.1 }}
+                        className="bg-white p-6 md:p-8 rounded-[32px] border border-slate-100 shadow-sm hover:shadow-md transition-shadow relative text-center md:text-left"
+                      >
+                        <div className="flex flex-col md:flex-row justify-between items-center md:items-start gap-4 mb-4">
+                          <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 bg-brand/5 rounded-full flex items-center justify-center text-brand">
+                              <User size={20} />
+                            </div>
+                            <div>
+                              <h4 className="font-bold text-slate-900 text-sm md:text-base">{review.author}</h4>
+                              <div className="flex items-center justify-center md:justify-start gap-2">
+                                <span className="text-slate-400 text-[10px] uppercase tracking-widest font-bold">{review.role}</span>
+                                <span className="text-slate-300 text-[10px]">•</span>
+                                <span className="text-slate-300 text-[10px]">{review.date}</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="flex gap-1">
+                            {[...Array(5)].map((_, i) => (
+                              <Star 
+                                key={i} 
+                                size={14} 
+                                className={i + 1 <= review.rating ? "text-yellow-400 fill-yellow-400" : "text-slate-200 fill-slate-200"} 
+                              />
+                            ))}
+                          </div>
+                        </div>
+                        
+                        <p className="text-slate-700 text-sm md:text-base leading-relaxed italic">
+                          "{review.text}"
+                        </p>
+                      </motion.div>
+                    ))}
+                  </div>
+                )}
+              </>
+            );
+          })()}
 
           <div className="mt-12 text-center">
             <p className="text-xs text-slate-400 italic">

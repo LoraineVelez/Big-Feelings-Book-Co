@@ -63,15 +63,15 @@ const AuthorBio: React.FC = () => {
           <h2 className="text-2xl md:text-3xl font-serif font-bold text-slate-900 mb-6 text-center">Debut Title</h2>
           <div className="bg-white rounded-[32px] p-6 md:p-8 border border-slate-100 shadow-2xl shadow-slate-100 flex flex-col sm:flex-row gap-8 md:gap-10 items-center max-w-2xl mx-auto">
             <div className="w-32 sm:w-44 aspect-[3/4] rounded-xl overflow-hidden shadow-xl shrink-0 transform -rotate-2 hover:rotate-0 transition-transform duration-500">
-              <img src="https://i.ibb.co/LzM2sqGj/Chat-GPT-Image-Jan-8-2026-05-06-21-PM.png" alt="Where Love Goes" className="w-full h-full object-cover" />
+              <img src="https://i.ibb.co/20LJ7gZ6/Chat-GPT-Image-Jul-8-2026-03-11-20-PM.png" alt="Where Does Love Go?" className="w-full h-full object-cover" />
             </div>
             <div className="text-center sm:text-left">
-              <h3 className="text-xl md:text-2xl font-serif font-bold text-slate-900 mb-1">Where Love Goes</h3>
-              <p className="text-brand font-semibold mb-4 italic text-xs">Illustrated by Paola Acosta</p>
+              <h3 className="text-xl md:text-2xl font-serif font-bold text-slate-900 mb-1">Where Does Love Go?</h3>
+              <p className="text-brand font-semibold mb-4 italic text-xs">Illustrated by Paola A. Cisante</p>
               <p className="text-sm md:text-base text-slate-600 mb-6 leading-relaxed">
                 The inaugural title of Big Feelings Book Co. A lyrical journey through the landscape of childhood grief.
               </p>
-              <Link to="/collections/where-love-goes" className="inline-flex items-center gap-2 bg-slate-900 text-white px-6 py-2 rounded-full font-bold text-xs hover:bg-brand transition-all">
+              <Link to="/collections/where-does-love-go" className="inline-flex items-center gap-2 bg-slate-900 text-white px-6 py-2 rounded-full font-bold text-xs hover:bg-brand transition-all">
                 View in Collection <BookOpen size={14} />
               </Link>
             </div>

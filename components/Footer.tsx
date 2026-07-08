@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Instagram, Twitter, Mail, Heart } from 'lucide-react';
+import { Heart } from 'lucide-react';
 
 const Footer: React.FC = () => {
   return (
     <footer className="bg-slate-50 pt-12 pb-8 px-6 border-t border-slate-100">
       <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-6 mb-10 md:mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-6 mb-10 md:mb-6">
           <div className="col-span-1 md:col-span-2 flex flex-col items-center md:items-start text-center md:text-left">
             <Link to="/" className="inline-block mb-4">
               <img 
@@ -28,26 +28,6 @@ const Footer: React.FC = () => {
               <li><Link to="/contact" className="text-slate-500 hover:text-brand transition-colors">Get in Touch</Link></li>
               <li><Link to="/submissions" className="text-slate-500 hover:text-brand transition-colors">Submission Guidelines</Link></li>
             </ul>
-          </div>
-
-          <div className="flex flex-col items-center md:items-start text-center md:text-left">
-            <h4 className="font-bold text-slate-800 mb-4 font-serif text-sm">Join the Heartbeat</h4>
-            <p className="text-xs text-slate-500 mb-4 px-4 md:px-0">Get updates on new releases and resources for families.</p>
-            <div className="flex gap-2 w-full max-w-xs md:max-w-none">
-              <input 
-                type="email" 
-                placeholder="Email address" 
-                className="bg-white border border-slate-200 px-4 py-2.5 rounded-lg text-xs flex-1 focus:outline-none focus:ring-2 focus:ring-brand/20"
-              />
-              <button className="bg-brand text-white px-4 py-2.5 rounded-lg text-xs font-semibold hover:bg-brand-dark transition-colors">
-                Join
-              </button>
-            </div>
-            <div className="flex gap-4 mt-6">
-              <a href="#" className="text-slate-400 hover:text-brand transition-colors p-1"><Instagram size={18} /></a>
-              <a href="#" className="text-slate-400 hover:text-brand transition-colors p-1"><Twitter size={18} /></a>
-              <a href="#" className="text-slate-400 hover:text-brand transition-colors p-1"><Mail size={18} /></a>
-            </div>
           </div>
         </div>
         

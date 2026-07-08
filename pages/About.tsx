@@ -29,9 +29,9 @@ const About: React.FC = () => {
 
   const illustrators = [
     {
-      name: "Paola Acosta",
+      name: "Paola A. Cisante",
       role: "Illustrator",
-      bio: "Paola Acosta is a children’s book illustrator based in Chile, working in both English and Spanish. With a background in graphic design and a passion for storytelling through illustration, her work is known for its warmth, color, and gentle sense of play. Paola brings stories to life through expressive characters and thoughtful visual worlds, creating illustrations that feel inviting, emotional, and rich with detail.",
+      bio: "Paola A. Cisante is a children’s book illustrator based in Chile, working in both English and Spanish. With a background in graphic design and a passion for storytelling through illustration, her work is known for its warmth, color, and gentle sense of play. Paola A. Cisante brings stories to life through expressive characters and thoughtful visual worlds, creating illustrations that feel inviting, emotional, and rich with detail.",
       image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=400"
     }
   ];

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { BOOKS } from '../constants';
 
 const Home: React.FC = () => {
-  const featuredBook = BOOKS[0]; // Where Love Goes
+  const featuredBook = BOOKS[0]; // Where Does Love Go?
 
   return (
     <div className="overflow-hidden bg-white">
@@ -101,7 +101,7 @@ const Home: React.FC = () => {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-8 md:mb-12">
             <span className="bg-brand/10 text-brand font-bold uppercase tracking-[0.4em] text-[10px] px-3 py-1 rounded-full">Featured Launch</span>
-            <h2 className="text-3xl md:text-5xl font-serif font-bold text-slate-900 mt-4 px-2">Where Love Goes</h2>
+            <h2 className="text-3xl md:text-5xl font-serif font-bold text-slate-900 mt-4 px-2">Where Does Love Go?</h2>
             <div className="w-12 h-1 bg-brand mx-auto mt-4 rounded-full opacity-30"></div>
           </div>
           
@@ -125,7 +125,7 @@ const Home: React.FC = () => {
                 A gentle journey through the landscape of childhood grief.
               </h3>
               <p className="text-xs sm:text-sm font-bold text-brand uppercase tracking-wider mb-6">
-                By Loraine Velez-Lugo · Illustrated by Paola Acosta
+                By Loraine Velez-Lugo · Illustrated by Paola A. Cisante
               </p>
               
               <div className="space-y-5 text-base md:text-lg text-slate-600 leading-relaxed mb-8 px-2 sm:px-0">
@@ -177,8 +177,9 @@ const Home: React.FC = () => {
             <div className="relative aspect-square max-w-[280px] sm:max-w-sm mx-auto md:max-w-none">
               <div className="absolute inset-0 bg-blue-50 rounded-[32px] sm:rounded-[40px] -rotate-2" />
               <img 
-                src="https://i.ibb.co/5hpsvTbF/Generated-Image-January-08-2026-5-23-PM.png" 
+                src="https://i.ibb.co/XrmZxLnP/Chat-GPT-Image-Jul-8-2026-03-20-45-PM.png" 
                 alt="Human connection" 
+                referrerPolicy="no-referrer"
                 className="absolute inset-0 w-full h-full object-cover rounded-[32px] sm:rounded-[40px] shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-700"
               />
             </div>
@@ -187,51 +188,54 @@ const Home: React.FC = () => {
       </section>
 
       {/* 5. Story Elements & Products */}
-      <section className="py-12 md:py-16 bg-white px-4 md:px-6 border-t border-slate-50">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-8 md:mb-12">
-            <span className="text-brand font-bold uppercase tracking-[0.2em] text-[10px]">The Comfort Collection</span>
-            <h2 className="text-2xl md:text-4xl font-serif font-bold text-slate-900 mt-3 leading-tight text-balance px-4">Beyond the Pages</h2>
-            <p className="text-slate-500 mt-4 max-w-xl mx-auto text-sm md:text-base leading-relaxed px-6">
-              Tangible tools designed to help children feel safe as they navigate big emotions.
-            </p>
-          </div>
+      {/* Hiding the section temporarily as requested since there are no real products to advertise yet */}
+      {false && (
+        <section className="py-12 md:py-16 bg-white px-4 md:px-6 border-t border-slate-50">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-8 md:mb-12">
+              <span className="text-brand font-bold uppercase tracking-[0.2em] text-[10px]">The Comfort Collection</span>
+              <h2 className="text-2xl md:text-4xl font-serif font-bold text-slate-900 mt-3 leading-tight text-balance px-4">Beyond the Pages</h2>
+              <p className="text-slate-500 mt-4 max-w-xl mx-auto text-sm md:text-base leading-relaxed px-6">
+                Tangible tools designed to help children feel safe as they navigate big emotions.
+              </p>
+            </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto px-2 sm:px-0">
-            {BOOKS[0].relatedProducts?.map((product) => (
-              <motion.div 
-                key={product.id}
-                whileHover={{ y: -8 }}
-                className="bg-white rounded-[24px] sm:rounded-[32px] overflow-hidden border border-slate-100 shadow-xl shadow-slate-200/30 flex flex-col group h-full"
-              >
-                <div className="w-full aspect-square overflow-hidden bg-slate-50">
-                  <img 
-                    src={product.image} 
-                    alt={product.name} 
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                </div>
-                <div className="p-6 sm:p-8 flex flex-col flex-grow">
-                  <div className="mb-3">
-                    <span className="text-brand font-bold uppercase tracking-[0.2em] text-[9px]">{product.type}</span>
-                    <h3 className="text-xl font-serif font-bold text-slate-900 mt-1">{product.name}</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto px-2 sm:px-0">
+              {BOOKS[0].relatedProducts?.map((product) => (
+                <motion.div 
+                  key={product.id}
+                  whileHover={{ y: -8 }}
+                  className="bg-white rounded-[24px] sm:rounded-[32px] overflow-hidden border border-slate-100 shadow-xl shadow-slate-200/30 flex flex-col group h-full"
+                >
+                  <div className="w-full aspect-square overflow-hidden bg-slate-50">
+                    <img 
+                      src={product.image} 
+                      alt={product.name} 
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
                   </div>
-                  <p className="text-slate-600 mb-6 leading-relaxed text-sm md:text-base">
-                    {product.description}
-                  </p>
-                  <div className="flex items-center justify-between mt-auto pt-4 border-t border-slate-100">
-                    <span className="text-lg sm:text-xl font-bold text-slate-900">{product.price}</span>
-                    <button className="bg-brand text-white px-5 py-2.5 rounded-full font-bold shadow-lg shadow-brand/20 hover:bg-brand-dark transition-all flex items-center gap-2 active:scale-95 group/btn text-xs sm:text-sm">
-                      <ShoppingBag size={16} />
-                      Purchase
-                    </button>
+                  <div className="p-6 sm:p-8 flex flex-col flex-grow">
+                    <div className="mb-3">
+                      <span className="text-brand font-bold uppercase tracking-[0.2em] text-[9px]">{product.type}</span>
+                      <h3 className="text-xl font-serif font-bold text-slate-900 mt-1">{product.name}</h3>
+                    </div>
+                    <p className="text-slate-600 mb-6 leading-relaxed text-sm md:text-base">
+                      {product.description}
+                    </p>
+                    <div className="flex items-center justify-between mt-auto pt-4 border-t border-slate-100">
+                      <span className="text-lg sm:text-xl font-bold text-slate-900">{product.price}</span>
+                      <button className="bg-brand text-white px-5 py-2.5 rounded-full font-bold shadow-lg shadow-brand/20 hover:bg-brand-dark transition-all flex items-center gap-2 active:scale-95 group/btn text-xs sm:text-sm">
+                        <ShoppingBag size={16} />
+                        Purchase
+                      </button>
+                    </div>
                   </div>
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
     </div>
   );
 };

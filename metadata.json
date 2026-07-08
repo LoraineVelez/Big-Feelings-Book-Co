@@ -1,5 +1,6 @@
 {
   "name": "Big Feelings Book Co (Official)",
   "description": "A modern, elegant children's book publisher website featuring bright designs and soft microanimations for a gentle user experience.",
-  "requestFramePermissions": []
+  "requestFramePermissions": [],
+  "majorCapabilities": []
 }

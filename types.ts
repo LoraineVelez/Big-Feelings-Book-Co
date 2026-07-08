@@ -24,6 +24,7 @@ export interface Book {
   bgGradient?: string; // Universe specific background
   themes: string[];
   relatedProducts?: Product[];
+  amazonUrl?: string;
 }
 
 export interface NavigationItem {

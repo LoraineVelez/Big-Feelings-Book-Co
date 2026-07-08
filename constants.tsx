@@ -9,20 +9,21 @@ export const NAV_ITEMS: NavigationItem[] = [
 
 export const BOOKS: Book[] = [
   {
-    id: 'where-love-goes',
-    title: 'Where Love Goes',
+    id: 'where-does-love-go',
+    title: 'Where Does Love Go?',
     author: 'Loraine Velez-Lugo',
-    illustrator: 'Paola Acosta',
-    price: '$18.95',
-    description: 'Where Love Goes follows Little Willow as she remembers the quiet, loving moments she shared with her guardian, Grand Willow. When Grand Willow is no longer there, Little Willow begins to wonder where that love has gone and slowly discovers that love does not disappear, it finds new ways to stay with us.',
+    illustrator: 'Paola A. Cisante',
+    price: '$15.99',
+    description: 'Where Does Love Go? follows Little Willow as she remembers the quiet, loving moments she shared with her guardian, Grand Willow. When Grand Willow is no longer there, Little Willow begins to wonder where that love has gone and slowly discovers that love does not disappear, it finds new ways to stay with us.',
     shortDescription: 'A gentle journey through the landscape of childhood grief.',
-    coverImage: 'https://i.ibb.co/LzM2sqGj/Chat-GPT-Image-Jan-8-2026-05-06-21-PM.png',
+    coverImage: 'https://i.ibb.co/20LJ7gZ6/Chat-GPT-Image-Jul-8-2026-03-11-20-PM.png',
     releaseDate: 'Available Now',
     category: 'New Release',
     emotions: ['Grief', 'Mourning', 'Enduring Love'],
     themes: ['Love', 'Loss', 'Mourning', 'Reassurance', 'Connection', 'Absence'],
     accentColor: '#E3256B',
     bgGradient: 'from-brand-light to-white',
+    amazonUrl: 'https://a.co/d/0jjJEnFV',
     relatedProducts: [
       {
         id: 'p1',

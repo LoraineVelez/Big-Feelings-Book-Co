@@ -72,9 +72,14 @@ const Collections: React.FC = () => {
                   Enter the Story
                   <BookOpen size={20} />
                 </Link>
-                <button className="bg-white border border-slate-200 text-slate-600 px-10 py-5 rounded-full font-bold hover:bg-slate-50 transition-all">
+                <a 
+                  href={currentBook.amazonUrl || "https://www.amazon.com"} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="bg-white border border-slate-200 text-slate-600 px-10 py-5 rounded-full font-bold hover:bg-slate-50 transition-all inline-flex items-center justify-center"
+                >
                   Purchase on Amazon
-                </button>
+                </a>
               </div>
             </div>
           </div>
