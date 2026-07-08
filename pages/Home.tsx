@@ -65,7 +65,7 @@ const Home: React.FC = () => {
       </section>
 
       {/* 2. Audience Section */}
-      <section className="py-10 md:py-14 px-4 md:px-6 bg-white border-t border-slate-50">
+      <section className="hidden md:block py-10 md:py-14 px-4 md:px-6 bg-white border-t border-slate-50">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-2xl md:text-3xl font-serif font-bold text-slate-900 mb-5 leading-tight text-balance px-2">
             For the grown-ups who hold space for children.
@@ -73,24 +73,24 @@ const Home: React.FC = () => {
           <p className="text-base md:text-lg text-slate-600 leading-relaxed mb-10 px-4">
             We support parents, caregivers, educators, and specialists who walk alongside young children through life's most meaningful moments.
           </p>
-          <div className="grid grid-cols-1 sm:flex sm:flex-wrap justify-center gap-6 sm:gap-10 md:gap-12 opacity-80">
-            <div className="flex flex-col items-center gap-3">
-              <div className="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-brand shadow-sm">
-                <Users size={24} />
+          <div className="flex flex-row justify-center items-center gap-6 sm:gap-10 md:gap-12 opacity-80">
+            <div className="flex flex-col items-center gap-2 sm:gap-3">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-50 rounded-xl sm:rounded-2xl flex items-center justify-center text-brand shadow-sm animate-fade-in">
+                <Users className="w-5 h-5 sm:w-6 sm:h-6" />
               </div>
-              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500">Parents</span>
+              <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500">Parents</span>
             </div>
-            <div className="flex flex-col items-center gap-3">
-              <div className="w-12 h-12 bg-yellow-50 rounded-2xl flex items-center justify-center text-brand shadow-sm">
-                <Sun size={24} />
+            <div className="flex flex-col items-center gap-2 sm:gap-3">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-yellow-50 rounded-xl sm:rounded-2xl flex items-center justify-center text-brand shadow-sm animate-fade-in">
+                <Sun className="w-5 h-5 sm:w-6 sm:h-6" />
               </div>
-              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500">Educators</span>
+              <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500">Educators</span>
             </div>
-            <div className="flex flex-col items-center gap-3">
-              <div className="w-12 h-12 bg-brand/5 rounded-2xl flex items-center justify-center text-brand shadow-sm">
-                <Heart size={24} />
+            <div className="flex flex-col items-center gap-2 sm:gap-3">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-brand/5 rounded-xl sm:rounded-2xl flex items-center justify-center text-brand shadow-sm animate-fade-in">
+                <Heart className="w-5 h-5 sm:w-6 sm:h-6" />
               </div>
-              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500">Specialists</span>
+              <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500">Specialists</span>
             </div>
           </div>
         </div>
@@ -146,6 +146,36 @@ const Home: React.FC = () => {
                   Learn More
                   <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
                 </Link>
+              </div>
+
+              {/* Mobile-only Audience Section under the book CTA */}
+              <div className="block md:hidden mt-12 pt-8 border-t border-slate-100 text-center">
+                <h4 className="text-xl font-serif font-bold text-slate-900 mb-4 leading-tight">
+                  For the grown-ups who hold space for children.
+                </h4>
+                <p className="text-sm text-slate-600 leading-relaxed mb-6 px-2">
+                  We support parents, caregivers, educators, and specialists who walk alongside young children through life's most meaningful moments.
+                </p>
+                <div className="flex flex-row justify-center items-center gap-6 opacity-80">
+                  <div className="flex flex-col items-center gap-2">
+                    <div className="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center text-brand shadow-sm">
+                      <Users size={20} />
+                    </div>
+                    <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-slate-500">Parents</span>
+                  </div>
+                  <div className="flex flex-col items-center gap-2">
+                    <div className="w-10 h-10 bg-yellow-50 rounded-xl flex items-center justify-center text-brand shadow-sm">
+                      <Sun size={20} />
+                    </div>
+                    <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-slate-500">Educators</span>
+                  </div>
+                  <div className="flex flex-col items-center gap-2">
+                    <div className="w-10 h-10 bg-brand/5 rounded-xl flex items-center justify-center text-brand shadow-sm">
+                      <Heart size={20} />
+                    </div>
+                    <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-slate-500">Specialists</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
