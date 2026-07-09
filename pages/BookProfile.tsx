@@ -101,7 +101,7 @@ const BookProfile: React.FC = () => {
             className="relative px-6 sm:px-0"
           >
             <div className="absolute -inset-8 md:-inset-10 bg-brand/5 rounded-full blur-[60px] md:blur-[80px] -z-10" />
-            <div className="relative aspect-[3/4] max-w-[280px] sm:max-w-md mx-auto rounded-[32px] md:rounded-[40px] overflow-hidden shadow-2xl transform lg:-rotate-1">
+            <div className="relative aspect-square max-w-[280px] sm:max-w-md mx-auto rounded-[32px] md:rounded-[40px] overflow-hidden shadow-2xl transform lg:-rotate-1">
               <img src={book.coverImage} alt={book.title} className="w-full h-full object-cover" />
             </div>
             <motion.div 

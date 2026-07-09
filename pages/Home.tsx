@@ -51,7 +51,7 @@ const Home: React.FC = () => {
             transition={{ duration: 1, delay: 0.2 }}
             className="hidden lg:block relative order-1 lg:order-2 px-6 sm:px-0"
           >
-            <div className="relative z-10 aspect-[3/4] max-w-[280px] sm:max-w-sm mx-auto rounded-[24px] sm:rounded-[32px] overflow-hidden shadow-2xl shadow-slate-300 transform rotate-1 hover:rotate-0 transition-transform duration-700">
+            <div className="relative z-10 aspect-square max-w-[280px] sm:max-w-sm mx-auto rounded-[24px] sm:rounded-[32px] overflow-hidden shadow-2xl shadow-slate-300 transform rotate-1 hover:rotate-0 transition-transform duration-700">
               <img 
                 src="https://i.ibb.co/sJQyCdYm/Generated-Image-January-08-2026-5-45-PM.png" 
                 alt="Caregiver and child shared moment" 

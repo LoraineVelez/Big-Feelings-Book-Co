@@ -62,7 +62,7 @@ const AuthorBio: React.FC = () => {
         <div>
           <h2 className="text-2xl md:text-3xl font-serif font-bold text-slate-900 mb-6 text-center">Debut Title</h2>
           <div className="bg-white rounded-[32px] p-6 md:p-8 border border-slate-100 shadow-2xl shadow-slate-100 flex flex-col sm:flex-row gap-8 md:gap-10 items-center max-w-2xl mx-auto">
-            <div className="w-32 sm:w-44 aspect-[3/4] rounded-xl overflow-hidden shadow-xl shrink-0 transform -rotate-2 hover:rotate-0 transition-transform duration-500">
+            <div className="w-32 sm:w-44 aspect-square rounded-xl overflow-hidden shadow-xl shrink-0 transform -rotate-2 hover:rotate-0 transition-transform duration-500">
               <img src="https://i.ibb.co/20LJ7gZ6/Chat-GPT-Image-Jul-8-2026-03-11-20-PM.png" alt="Where Does Love Go?" className="w-full h-full object-cover" />
             </div>
             <div className="text-center sm:text-left">
